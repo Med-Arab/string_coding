@@ -1,16 +1,37 @@
-# This is a sample Python script.
+def init_alphabet():
+    alphabets = []
+    alphabets.append("абвгдеёжзийклмнопрстуфхцчшщъыьэюя")  # переменная содержащая русский алфавит
+    alphabets.append("АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ")
+    alphabets.append("abcdefghijklmnopqrstuvwxyz")
+    alphabets.append(".,';:\\|*-+=/")
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+    return alphabets
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def get_alphabet(alphabets, symbol):
+    for alphabet in alphabets:
+        if symbol in alphabet:
+            return alphabet
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def code_string(): #вызывается функция
+    user_value = input("Введите что-нибудь здесь") #переменная строки которую вводит пользователь
+    alphabets = init_alphabet()
+    new_string = "" #переменная закодированной строки
+    for i in user_value: #цикл
+        index = -1  # переменная индекс
+        use_alphabet = get_alphabet(alphabets, i)
+        if use_alphabet is not None:
+            index = use_alphabet.index(i) + 5
+            if index > len(use_alphabet):  # условие если измененный индекс стал больше 33
+                index -= len(use_alphabet)  # вычитаем из большего числа 33
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+        if index == -1:
+            new_string += i
+        else:
+            new_string += use_alphabet[index]  # кпеременной "новая строка" добавляется новый символ
+
+    return new_string
+
+
+print(code_string()) #напечатай новую строку
